@@ -15,7 +15,13 @@ import {
   Crown, 
   Sparkles,
   ChevronRight,
-  Play
+  Play,
+  Mail,
+  Phone,
+  MapPin,
+  Instagram,
+  Twitter,
+  Facebook
 } from 'lucide-react';
 import { useAuth } from './hooks/useAuth';
 import { useCart } from './hooks/useCart';
@@ -37,20 +43,20 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// Optimized product data - reduced initial load
+// Optimized product data - memoized for better performance
 const featuredProducts = [
-  { id: "1", name: "Dragon Ball Z Hoodie", price: "R650", anime: "Dragon Ball Z", category: "hoodies" },
-  { id: "2", name: "Naruto Akatsuki Tee", price: "R450", anime: "Naruto", category: "tees" },
-  { id: "3", name: "Attack on Titan Poster", price: "R250", anime: "Attack on Titan", category: "posters" },
-  { id: "4", name: "One Piece Mousepad", price: "R380", anime: "One Piece", category: "mousepads" }
+  { id: "1", name: "Dragon Ball Z Hoodie", price: "R650", anime: "Dragon Ball Z", category: "hoodies", description: "Premium hoodie featuring Goku's iconic transformation scenes" },
+  { id: "2", name: "Naruto Akatsuki Tee", price: "R450", anime: "Naruto", category: "tees", description: "Stylish tee with the legendary Akatsuki cloud design" },
+  { id: "3", name: "Attack on Titan Poster", price: "R250", anime: "Attack on Titan", category: "posters", description: "Epic poster showcasing humanity's fight for survival" },
+  { id: "4", name: "One Piece Mousepad", price: "R380", anime: "One Piece", category: "mousepads", description: "Gaming mousepad featuring the Straw Hat Pirates" },
+  { id: "5", name: "Demon Slayer Hoodie", price: "R680", anime: "Demon Slayer", category: "hoodies", description: "Premium hoodie with Tanjiro's breathing technique design" },
+  { id: "6", name: "Jujutsu Kaisen Tee", price: "R420", anime: "Jujutsu Kaisen", category: "tees", description: "Cursed energy-inspired design on premium cotton" },
+  { id: "7", name: "Studio Ghibli Poster", price: "R280", anime: "Studio Ghibli", category: "posters", description: "Magical poster celebrating Miyazaki's masterpieces" },
+  { id: "8", name: "Tokyo Ghoul Mousepad", price: "R400", anime: "Tokyo Ghoul", category: "mousepads", description: "Dark-themed mousepad with Kaneki's kagune design" }
 ];
 
 const allProducts = [
   ...featuredProducts,
-  { id: "5", name: "Demon Slayer Hoodie", price: "R680", anime: "Demon Slayer", category: "hoodies" },
-  { id: "6", name: "Jujutsu Kaisen Tee", price: "R420", anime: "Jujutsu Kaisen", category: "tees" },
-  { id: "7", name: "Studio Ghibli Poster", price: "R280", anime: "Studio Ghibli", category: "posters" },
-  { id: "8", name: "Tokyo Ghoul Mousepad", price: "R400", anime: "Tokyo Ghoul", category: "mousepads" },
   { id: "9", name: "Bleach Bankai Hoodie", price: "R720", anime: "Bleach", category: "hoodies" },
   { id: "10", name: "Hunter x Hunter Tee", price: "R460", anime: "Hunter x Hunter", category: "tees" },
   { id: "11", name: "Evangelion Poster", price: "R300", anime: "Evangelion", category: "posters" },
@@ -65,7 +71,6 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState('home');
   const [orderData, setOrderData] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const { user, login, signup, logout, checkAuth } = useAuth();
   const { 
@@ -78,15 +83,10 @@ export default function App() {
     getCartItemCount 
   } = useCart();
 
-  // Initialize auth and set loaded state
   useEffect(() => {
     checkAuth();
-    // Simulate initial load completion
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
   }, []);
 
-  // Optimized handlers
   const handleLogin = async (email: string, password: string) => {
     const result = await login(email, password);
     if (result.success) {
@@ -125,18 +125,6 @@ export default function App() {
       default: return Star;
     }
   };
-
-  // Show loading state initially
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-400 mx-auto mb-4"></div>
-          <p className="text-white text-lg">Loading Lowkey! Otaku...</p>
-        </div>
-      </div>
-    );
-  }
 
   // Render different pages
   if (currentPage === 'checkout') {
@@ -303,7 +291,7 @@ export default function App() {
         )}
       </nav>
 
-      {/* Hero Section - Optimized */}
+      {/* Hero Section */}
       <section className="relative pt-20 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-black"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -340,35 +328,34 @@ export default function App() {
         </div>
       </section>
 
-      {/* Featured Products - Simplified */}
+      {/* Featured Collections - OPTIMIZED */}
       <section className="py-16 bg-gradient-to-b from-black to-gray-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Featured Collection</h2>
+            <h2 className="text-4xl font-bold mb-4">Featured Collections</h2>
             <p className="text-xl text-gray-400">Handpicked favorites from our premium collection</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product, index) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.slice(0, 4).map((product, index) => {
               const IconComponent = getIcon(product.category);
               
               return (
                 <div 
                   key={product.id} 
-                  className="group cursor-pointer animate-fade-in-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="group cursor-pointer"
                   onClick={() => setSelectedProduct(product)}
                 >
-                  <div className="bg-black rounded-lg overflow-hidden shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-blue-500/20 border border-blue-600/30 group-hover:border-blue-400/50">
-                    <div className="aspect-w-3 aspect-h-4 bg-gradient-to-br from-blue-900/20 to-black/80 h-64 flex items-center justify-center">
+                  <div className="bg-black rounded-lg overflow-hidden shadow-xl transform transition-all duration-300 group-hover:scale-105 border border-blue-600/20 group-hover:border-blue-400/40">
+                    <div className="bg-gradient-to-br from-blue-900/20 to-black/80 h-48 flex items-center justify-center">
                       <div className="text-center">
-                        <div className="bg-blue-600/10 rounded-full p-6 w-20 h-20 flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600/20 transition-colors duration-300">
-                          <IconComponent className="h-10 w-10 text-blue-400" />
+                        <div className="bg-blue-600/10 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-600/20 transition-colors duration-300">
+                          <IconComponent className="h-8 w-8 text-blue-400" />
                         </div>
                         <p className="text-gray-400 text-sm">{product.anime}</p>
                       </div>
                     </div>
-                    <div className="p-6">
+                    <div className="p-4">
                       <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-400 transition-colors duration-300">{product.name}</h3>
                       <div className="flex justify-between items-center">
                         <p className="text-blue-400 text-lg font-bold">{product.price}</p>
@@ -385,23 +372,179 @@ export default function App() {
         </div>
       </section>
 
+      {/* Our Products - OPTIMIZED */}
+      <section className="py-16 bg-gradient-to-b from-gray-900/50 to-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Our Products</h2>
+            <p className="text-xl text-gray-400">Explore our complete anime merchandise collection</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.slice(4, 8).map((product, index) => {
+              const IconComponent = getIcon(product.category);
+              
+              return (
+                <div 
+                  key={product.id} 
+                  className="group cursor-pointer"
+                  onClick={() => setSelectedProduct(product)}
+                >
+                  <div className="bg-black rounded-lg overflow-hidden shadow-xl transform transition-all duration-300 group-hover:scale-105 border border-purple-600/20 group-hover:border-purple-400/40">
+                    <div className="bg-gradient-to-br from-purple-900/20 to-black/80 h-48 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="bg-purple-600/10 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-3 group-hover:bg-purple-600/20 transition-colors duration-300">
+                          <IconComponent className="h-8 w-8 text-purple-400" />
+                        </div>
+                        <p className="text-gray-400 text-sm">{product.anime}</p>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-lg font-semibold mb-2 group-hover:text-purple-400 transition-colors duration-300">{product.name}</h3>
+                      <div className="flex justify-between items-center">
+                        <p className="text-purple-400 text-lg font-bold">{product.price}</p>
+                        <span className="text-xs bg-purple-600/20 text-purple-300 px-2 py-1 rounded-full capitalize">
+                          {product.category}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setIsSearchModalOpen(true)}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 mx-auto"
+            >
+              View All Products
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* About Lowkey Otaku - OPTIMIZED */}
+      <section className="py-16 bg-gradient-to-r from-blue-900/10 to-purple-900/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold mb-6">About Lowkey! Otaku</h2>
+              <p className="text-xl text-gray-300 mb-6">
+                We're passionate anime fans creating premium merchandise for the otaku community. 
+                Every design is carefully crafted by talented artists who understand what it means 
+                to be truly passionate about anime.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-blue-600/10 rounded-full p-2">
+                    <Star className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <span className="text-gray-300">Premium quality materials</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="bg-purple-600/10 rounded-full p-2">
+                    <Sparkles className="h-5 w-5 text-purple-400" />
+                  </div>
+                  <span className="text-gray-300">Exclusive artist collaborations</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="bg-green-600/10 rounded-full p-2">
+                    <Heart className="h-5 w-5 text-green-400" />
+                  </div>
+                  <span className="text-gray-300">Made by otaku, for otaku</span>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 rounded-lg p-8 border border-blue-600/20">
+              <div className="text-center">
+                <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-full p-6 w-24 h-24 flex items-center justify-center mx-auto mb-6">
+                  <Zap className="h-12 w-12 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+                <p className="text-gray-300">
+                  To provide high-quality anime merchandise that lets fans express their passion 
+                  while staying lowkey in their everyday lives. We believe in subtle designs 
+                  that speak to fellow otaku.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Get In Touch - OPTIMIZED */}
+      <section className="py-16 bg-gradient-to-b from-black to-gray-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
+            <p className="text-xl text-gray-400">Have questions? We'd love to hear from you!</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6 bg-black/50 rounded-lg border border-white/10">
+              <div className="bg-blue-600/10 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Mail className="h-8 w-8 text-blue-400" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Email Us</h3>
+              <p className="text-gray-400 mb-4">Get in touch for any questions</p>
+              <a href="mailto:hello@lowkeyotaku.com" className="text-blue-400 hover:text-blue-300 transition-colors duration-300">
+                hello@lowkeyotaku.com
+              </a>
+            </div>
+            
+            <div className="text-center p-6 bg-black/50 rounded-lg border border-white/10">
+              <div className="bg-green-600/10 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Phone className="h-8 w-8 text-green-400" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Call Us</h3>
+              <p className="text-gray-400 mb-4">Speak to our support team</p>
+              <a href="tel:+27123456789" className="text-green-400 hover:text-green-300 transition-colors duration-300">
+                +27 12 345 6789
+              </a>
+            </div>
+            
+            <div className="text-center p-6 bg-black/50 rounded-lg border border-white/10">
+              <div className="bg-purple-600/10 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Instagram className="h-8 w-8 text-purple-400" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Follow Us</h3>
+              <p className="text-gray-400 mb-4">Stay updated with our latest drops</p>
+              <div className="flex justify-center gap-4">
+                <a href="#" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-blue-400 hover:text-blue-300 transition-colors duration-300">
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-blue-600 hover:text-blue-500 transition-colors duration-300">
+                  <Facebook className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Stats */}
       <section className="py-16 bg-gradient-to-r from-blue-900/10 to-purple-900/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="animate-fade-in-up">
+            <div>
               <div className="text-3xl font-bold text-blue-400 mb-2">500+</div>
               <div className="text-gray-400">Happy Customers</div>
             </div>
-            <div className="animate-fade-in-up animation-delay-100">
+            <div>
               <div className="text-3xl font-bold text-purple-400 mb-2">50+</div>
               <div className="text-gray-400">Anime Series</div>
             </div>
-            <div className="animate-fade-in-up animation-delay-200">
+            <div>
               <div className="text-3xl font-bold text-red-400 mb-2">100+</div>
               <div className="text-gray-400">Unique Designs</div>
             </div>
-            <div className="animate-fade-in-up animation-delay-300">
+            <div>
               <div className="text-3xl font-bold text-green-400 mb-2">24/7</div>
               <div className="text-gray-400">Support</div>
             </div>

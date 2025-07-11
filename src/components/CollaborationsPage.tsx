@@ -40,6 +40,34 @@ export default function CollaborationsPage({ onBack }: CollaborationsPageProps) 
         { id: "c8", name: "Village Hidden Poster", price: "R370", anime: "Naruto", type: "Precision Fit", category: "posters", description: "High-precision print featuring Hidden Leaf Village. Exact color matching and premium paper quality." },
         { id: "c9", name: "Shinobi Precision Mousepad", price: "R570", anime: "Naruto", type: "Precision Fit", category: "mousepads", description: "Precisely engineered mousepad with optimal surface texture. Perfect dimensions for competitive gaming." }
       ]
+    },
+    {
+      partner: "WIT Studio",
+      collection: "Attack on Titan Legacy",
+      description: "Celebrating the iconic first three seasons with vintage-inspired designs",
+      items: "10 exclusive designs",
+      status: "Available Now",
+      logo: Zap,
+      products: [
+        { id: "c10", name: "WIT Studio Levi Poster", price: "R260", anime: "Attack on Titan", type: "Artist Series", category: "posters", description: "Artist series poster celebrating WIT Studio's iconic Levi scenes. Hand-signed by the character designer." },
+        { id: "c11", name: "Vintage Survey Corps Tee", price: "R410", anime: "Attack on Titan", type: "Artist Series", category: "tees", description: "Vintage-style tee honoring the original three seasons. Distressed print with authentic aging effects." },
+        { id: "c12", name: "Titan Shifter Hoodie", price: "R620", anime: "Attack on Titan", type: "Artist Series", category: "hoodies", description: "Artist series hoodie featuring all nine titan shifters. Glow-in-the-dark titan marks and premium construction." },
+        { id: "c13", name: "Colossal Titan Mousepad", price: "R460", anime: "Attack on Titan", type: "Artist Series", category: "mousepads", description: "Oversized mousepad featuring the Colossal Titan's imposing silhouette. Heat-reactive surface reveals hidden details." }
+      ]
+    },
+    {
+      partner: "Studio Pierrot",
+      collection: "Naruto 20th Anniversary",
+      description: "Commemorating two decades of ninja adventures with special edition designs",
+      items: "18 exclusive designs",
+      status: "Available Now",
+      logo: Star,
+      products: [
+        { id: "c14", name: "Hokage Legacy Hoodie", price: "R700", anime: "Naruto", type: "Anniversary Edition", category: "hoodies", description: "20th anniversary hoodie featuring all seven Hokage. Gold foil numbering and premium anniversary packaging." },
+        { id: "c15", name: "Team 7 Reunion Tee", price: "R440", anime: "Naruto", type: "Anniversary Edition", category: "tees", description: "Anniversary tee celebrating Team 7's bond. Features then-and-now artwork with metallic accents." },
+        { id: "c16", name: "Nine-Tails Chakra Poster", price: "R290", anime: "Naruto", type: "Anniversary Edition", category: "posters", description: "Anniversary poster showcasing Kurama's chakra mode. UV-reactive inks create stunning visual effects." },
+        { id: "c17", name: "Sharingan Gaming Mousepad", price: "R490", anime: "Naruto", type: "Anniversary Edition", category: "mousepads", description: "Gaming mousepad with animated Sharingan pattern. LED-compatible edges sync with your setup." }
+      ]
     }
   ];
 

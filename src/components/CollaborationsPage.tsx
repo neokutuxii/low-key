@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Star, Package, Shirt, Image, Mouse, Crown, Award, Zap } from 'lucide-react';
+import { ArrowLeft, Star, Package, Shirt, Image, Mouse, Crown, Award } from 'lucide-react';
 import ProductPage from './ProductPage';
 import { useCart } from '../hooks/useCart';
 
@@ -39,34 +39,6 @@ export default function CollaborationsPage({ onBack }: CollaborationsPageProps) 
         { id: "c7", name: "Hokage Precision Hoodie", price: "R780", anime: "Naruto", type: "Precision Fit", category: "hoodies", description: "Meticulously crafted hoodie with perfect fit guarantee. Premium materials with Hokage-inspired design details." },
         { id: "c8", name: "Village Hidden Poster", price: "R370", anime: "Naruto", type: "Precision Fit", category: "posters", description: "High-precision print featuring Hidden Leaf Village. Exact color matching and premium paper quality." },
         { id: "c9", name: "Shinobi Precision Mousepad", price: "R570", anime: "Naruto", type: "Precision Fit", category: "mousepads", description: "Precisely engineered mousepad with optimal surface texture. Perfect dimensions for competitive gaming." }
-      ]
-    },
-    {
-      partner: "WIT Studio",
-      collection: "Attack on Titan Legacy",
-      description: "Celebrating the iconic first three seasons with vintage-inspired designs",
-      items: "10 exclusive designs",
-      status: "Available Now",
-      logo: Zap,
-      products: [
-        { id: "c10", name: "WIT Studio Levi Poster", price: "R260", anime: "Attack on Titan", type: "Artist Series", category: "posters", description: "Artist series poster celebrating WIT Studio's iconic Levi scenes. Hand-signed by the character designer." },
-        { id: "c11", name: "Vintage Survey Corps Tee", price: "R410", anime: "Attack on Titan", type: "Artist Series", category: "tees", description: "Vintage-style tee honoring the original three seasons. Distressed print with authentic aging effects." },
-        { id: "c12", name: "Titan Shifter Hoodie", price: "R620", anime: "Attack on Titan", type: "Artist Series", category: "hoodies", description: "Artist series hoodie featuring all nine titan shifters. Glow-in-the-dark titan marks and premium construction." },
-        { id: "c13", name: "Colossal Titan Mousepad", price: "R460", anime: "Attack on Titan", type: "Artist Series", category: "mousepads", description: "Oversized mousepad featuring the Colossal Titan's imposing silhouette. Heat-reactive surface reveals hidden details." }
-      ]
-    },
-    {
-      partner: "Studio Pierrot",
-      collection: "Naruto 20th Anniversary",
-      description: "Commemorating two decades of ninja adventures with special edition designs",
-      items: "18 exclusive designs",
-      status: "Available Now",
-      logo: Star,
-      products: [
-        { id: "c14", name: "Hokage Legacy Hoodie", price: "R700", anime: "Naruto", type: "Anniversary Edition", category: "hoodies", description: "20th anniversary hoodie featuring all seven Hokage. Gold foil numbering and premium anniversary packaging." },
-        { id: "c15", name: "Team 7 Reunion Tee", price: "R440", anime: "Naruto", type: "Anniversary Edition", category: "tees", description: "Anniversary tee celebrating Team 7's bond. Features then-and-now artwork with metallic accents." },
-        { id: "c16", name: "Nine-Tails Chakra Poster", price: "R290", anime: "Naruto", type: "Anniversary Edition", category: "posters", description: "Anniversary poster showcasing Kurama's chakra mode. UV-reactive inks create stunning visual effects." },
-        { id: "c17", name: "Sharingan Gaming Mousepad", price: "R490", anime: "Naruto", type: "Anniversary Edition", category: "mousepads", description: "Gaming mousepad with animated Sharingan pattern. LED-compatible edges sync with your setup." }
       ]
     }
   ];
@@ -108,10 +80,8 @@ export default function CollaborationsPage({ onBack }: CollaborationsPageProps) 
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'Official Collab': return 'from-purple-500 to-purple-700';
-      case 'Movie Exclusive': return 'from-blue-500 to-blue-700';
-      case 'Artist Series': return 'from-green-500 to-green-700';
-      case 'Anniversary Edition': return 'from-yellow-500 to-yellow-700';
+      case 'Designer Collab': return 'from-purple-500 to-purple-700';
+      case 'Precision Fit': return 'from-blue-500 to-blue-700';
       default: return 'from-purple-500 to-purple-700';
     }
   };
@@ -136,7 +106,7 @@ export default function CollaborationsPage({ onBack }: CollaborationsPageProps) 
           <h1 className="text-5xl font-bold mb-4">
             Epic <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">Collaborations</span>
           </h1>
-          <p className="text-xl text-gray-400">Official partnerships with legendary anime studios - All artwork by <a href="https://www.instagram.com/garnet_arts._/" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline">Garnet</a></p>
+          <p className="text-xl text-gray-400">Official partnerships with legendary brands - All artwork by <a href="https://www.instagram.com/garnet_arts._/" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline">Garnet</a></p>
         </div>
 
         {/* Collaborations Overview */}
